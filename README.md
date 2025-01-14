@@ -62,7 +62,50 @@
 ### 13. Feature Toggle:
 - Implement feature toggles to enable/disable features dynamically.
 
-## Deployment (Optional)
+### 14. JIRA Tasks :
+1. Carts and Checkout Functionality
+
+Task 1.1: Implement "Add to Cart" functionality.
+Task 1.2: Implement "View Cart" functionality.
+Task 1.3: Implement "Remove from Cart" functionality.
+Task 1.4: Implement "Proceed to Checkout" functionality.
+
+2. Responsiveness (Pick this when core functionalty is complete )
+
+Task 2.1: Ensure website responsiveness for mobile devices.
+Task 2.2: Ensure website responsiveness for tablets.
+Task 2.3: Ensure website responsiveness for desktop devices.
+
+3. Search and Filter
+
+Task 3.1: Implement product search functionality.
+Task 3.2: Implement product filter by category.
+Task 3.3: Implement product filter by price.
+Task 3.4: Implement product filter by rating.
+
+4. Login and Registration
+
+Task 4.1: Implement user registration functionality.
+Task 4.2: Implement user login functionality.
+Task 4.3: Implement user logout functionality.
+
+5. Payment System
+
+Task 5.1: Implement payment method selection (COD, UPI, credit card, debit card).
+Task 5.2: Implement coupon application during checkout.
+
+6. Order Summary
+
+Task 6.1: Implement order summary view after checkout.
+Task 6.2: Implement email confirmation of order.
+
+7. Festive/Anniversary/Annual Deals
+Task 7.1: Implement display of festive deals.
+Task 7.2: Implement display of anniversary deals.
+Task 7.3: Implement display of annual sales deals.
+
+8. Feature Toggle
+Task 8.1: Implement feature toggle functionality for enabling/disabling features dynamically.
 
 ### 14. Deploy the Application:
 - TBD
@@ -132,3 +175,4 @@ homecentre/
 ├── .gitignore
 ├── README.md
 └── package.json
+
