@@ -1,0 +1,24 @@
+{
+  "name": "homecentre",
+  "version": "1.0.0",
+  "description": "- Create a new React app using `create-react-app`.\r - Set up a Node.js backend with Express.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sharmasuneel/homecentre.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sharmasuneel/homecentre/issues"
+  },
+  "homepage": "https://github.com/sharmasuneel/homecentre#readme",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
