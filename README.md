@@ -100,6 +100,17 @@
 
 #### 14.8. Feature Toggle
    - Task 8.1: Implement feature toggle functionality for enabling/disabling features dynamically.
+#### 14.9. Redux implementation
+- Task 8.1: Implement Redux add related packages.: Anirudh
+
+#### 14.10 Carts and Checkout Functionality
+   - Task 1.1: Create Product list component: Laksya
+   - Task 1.2: Create Product Widget with details: Nikhil/Nitin.
+
+#### 14.11 Filter management
+   - Task 1.1: Create filter utility: Neha/Smriti 
+   - Task 1.2: Create filter left navigation: Harshad/Ramya 
+
 
 
 ### 15. Deploy the Application:
