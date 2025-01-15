@@ -7,10 +7,7 @@
  * @returns {Array<Object>} - The filtered list of products.
  */
 const getFilterProducts = (key, value, products) => {
-   return products.filter(product => { 
-      console.log(key, product[key].toString(), value, value.toString())
-      return product[key].toString() === value.toString()
-   });
+   return products.filter(product => product[key].toString() === value.toString());
 };
 
 /**
