@@ -2,7 +2,7 @@ const express = require('express');
 const { postData, getData } = require('../services/dataService');
 const router = express.Router();
 const productsData = require('../metadata/productList.json');
-const { filterProducts } = require('../utils/productUtility');
+const { getFilterProducts, searchProducts } = require('../utils/productUtility');
 
 /**
  * @module routes/products
@@ -39,8 +39,12 @@ router.get('/', async (req, res, next) => {
 router.get('/:category/:value', async (req, res, next) => {
     const key = req.params.category;
     const value = req.params.value;
-    const products = filterProducts(key, value, productsData.products);
+    const products = getFilterProducts(key, value, productsData.products);
     return res.json(products);
 });
 
+router.get('/searchcriteria', async (req, res, next) => {
+const products = searchProducts(req.query, productsData.products);
+    return res.json(products);
+});
 module.exports = router;
