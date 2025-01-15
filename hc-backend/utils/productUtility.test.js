@@ -43,21 +43,30 @@ describe('getFilterProducts', () => {
 
 describe('searchProducts', () => {
   const products = [
-    { id: 1, category: 'electronics', name: 'Laptop' , brand: 'HP' },
-    { id: 2, category: 'electronics', name: 'Smartphone', brand:'Samsung' },
-    { id: 3, category: 'furniture', name: 'Chair' },
-    { id: 4, category: 'furniture', name: 'Table' },
+    { id: 1, category: 'electronics', name: 'Laptop', brand: 'HP' },
+    { id: 2, category: 'electronics', name: 'Smartphone', brand: 'Samsung' },
+    { id: 3, category: 'furniture', name: 'Chair', brand: 'IKEA' },
+    { id: 4, category: 'furniture', name: 'Table', brand: 'IKEA' },
   ];
-
+  
   it('should filter products by category and brand', () => {
-    const query = {category: 'electronics',brand :'HP'}
+    const query =  { category: 'electronics', brand: 'HP'}
     const expected = [
-      { id: 1, category: 'electronics', name: 'Laptop' , brand: 'HP'}
+      { id: 1, category: 'electronics', name: 'Laptop', brand: 'HP' }
     ];
 
     const result = searchProducts(query, products);
     expect(result).toEqual(expected);
   });
-
   
+  it('should filter products by category, brand and name', () => {
+    const query =  { category: 'furniture', name: 'Chair', brand: 'IKEA' }
+    const expected = [
+      { id: 3, category: 'furniture', name: 'Chair', brand: 'IKEA' }
+    ];
+    
+    const result = searchProducts(query, products);
+    expect(result).toEqual(expected);
+  });
+
 });

@@ -43,8 +43,9 @@ router.get('/:category/:value', async (req, res, next) => {
     return res.json(products);
 });
 
-router.get('/searchcriteria', async (req, res, next) => {
-const products = searchProducts(req.query, productsData.products);
+router.get('/query', async (req, res, next) => {
+    const products = searchProducts(req.query, productsData.products);
     return res.json(products);
 });
+
 module.exports = router;
