@@ -1,0 +1,13 @@
+# Run lint staged
+npm run lint-staged --prefix hc-frontend
+
+# Run tests cases
+npm run test:before-commit --prefix hc-frontend
+
+# If tests pass, allow the commit, otherwise block it
+if [ $? -eq 0 ]; then
+  echo "All tests passed! Commit allowed."
+else
+  echo "Tests failed. Commit blocked."
+  exit 1
+fi
