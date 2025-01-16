@@ -76,6 +76,32 @@
 					"response": []
 				},
 				{
+					"name": "keyword search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3020/products/keywordSearch?keyword=furniture Knoll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3020",
+							"path": [
+								"products",
+								"keywordSearch"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "furniture Knoll"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Search query post",
 					"request": {
 						"method": "POST",
