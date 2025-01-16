@@ -3,11 +3,11 @@ import './App.css';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-const ContextProvider = createContext();
+const ContextProvider = createContext({});
 
 //TODO: set contextProvider values from context and use it below
 
-function App() {
+const App: React.FC = () => {
   return (
     <Provider store={store}>
       <ContextProvider.Provider value={{}}>
