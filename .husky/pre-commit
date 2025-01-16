@@ -1,13 +1,32 @@
-# Run lint staged
-npm run lint-staged --prefix hc-frontend
+#!/bin/bash
 
-# Run tests cases
-npm run test:before-commit --prefix hc-frontend
+# Check if the commit is related to the backend
+if git diff --cached --name-only | grep -q "^hc-backend/"; then
+  echo "Running tests for the backend..."
+  npm run test --prefix hc-backend  # or whatever command you use to run backend tests
+  if [ $? -eq 0 ]; then
+    echo "All backend tests passed! Commit allowed."
+  else
+    echo "Backend tests failed. Commit aborted."
+    exit 1
+  fi
+fi
 
-# If tests pass, allow the commit, otherwise block it
-if [ $? -eq 0 ]; then
-  echo "All tests passed! Commit allowed."
-else
-  echo "Tests failed. Commit blocked."
-  exit 1
+# Check if the commit is related to the frontend
+if git diff --cached --name-only | grep -q "^hc-frontend/"; then
+  echo "Running ES Lint for the frontend..."
+  # Run lint staged
+  npm run lint-staged --prefix hc-frontend
+
+  echo "Running tests for the frontend..."
+  # Run tests cases
+  npm run test:before-commit --prefix hc-frontend
+
+  # If tests pass, allow the commit, otherwise block it
+  if [ $? -eq 0 ]; then
+    echo "All frontend tests passed! Commit allowed."
+  else
+    echo "Tests failed. Commit blocked."
+    exit 1
+  fi
 fi

@@ -16,7 +16,7 @@
             "error",
             2
         ],
-        "linebreak-style": 1,
+        "linebreak-style": 0,
         "quotes": [
             "error",
             "single"
@@ -25,6 +25,7 @@
     "parserOptions": {
         "ecmaVersion": 2021,
         "sourceType": "module",
+        "project": "./tsconfig.json",
         "ecmaFeatures": {
             "jsx": true
         }
@@ -42,7 +43,8 @@
             "node": {
                 "paths": [
                     "src"
-                ]
+                ],
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
             }
         }
     },

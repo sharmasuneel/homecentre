@@ -55,5 +55,10 @@
   },
   "lint-staged": {
     "src/**/*.js|jsx": "eslint --fix --quiet"
+  },
+  "overrides": {
+    "react-scripts": {
+      "typescript": "^5.7.3"
+    }
   }
 }
