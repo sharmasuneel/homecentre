@@ -6,8 +6,23 @@
  * @param {Array<Object>} products - The list of products to filter.
  * @returns {Array<Object>} - The filtered list of products.
  */
-const filterProducts = (key, value, products) => {
-   return products.filter(product => product[key] === value);
+const getFilterProducts = (key, value, products) => {
+   return products.filter(product => product[key].toString() === value.toString());
 };
 
-module.exports = { filterProducts };
+/**
+ * Search products based on a given query.
+ * 
+ * @param {Object} quesry - request query object with key valy pair
+ * @returns {Array<Object>} - The filtered list of products.
+ */
+const searchProducts = (query, products) => {
+   let filterProducts = products
+   for(const key in query) {
+      filterProducts = getFilterProducts(key, query[key], filterProducts)
+   }
+   return filterProducts
+};
+
+
+module.exports = { getFilterProducts, searchProducts };

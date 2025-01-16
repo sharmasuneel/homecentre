@@ -1,6 +1,6 @@
-const { filterProducts } = require('./productUtility'); 
+const { getFilterProducts, searchProducts } = require('./productUtility'); 
 
-describe('filterProducts', () => {
+describe('getFilterProducts', () => {
   const products = [
     { id: 1, category: 'electronics', name: 'Laptop' },
     { id: 2, category: 'electronics', name: 'Smartphone' },
@@ -16,7 +16,7 @@ describe('filterProducts', () => {
       { id: 2, category: 'electronics', name: 'Smartphone' },
     ];
 
-    const result = filterProducts(key, value, products);
+    const result = getFilterProducts(key, value, products);
     expect(result).toEqual(expected);
   });
 
@@ -25,7 +25,7 @@ describe('filterProducts', () => {
     const value = 'toys';
     const expected = [];
 
-    const result = filterProducts(key, value, products);
+    const result = getFilterProducts(key, value, products);
     expect(result).toEqual(expected);
   });
 
@@ -36,7 +36,37 @@ describe('filterProducts', () => {
       { id: 3, category: 'furniture', name: 'Chair' },
     ];
 
-    const result = filterProducts(key, value, products);
+    const result = getFilterProducts(key, value, products);
     expect(result).toEqual(expected);
   });
+});
+
+describe('searchProducts', () => {
+  const products = [
+    { id: 1, category: 'electronics', name: 'Laptop', brand: 'HP' },
+    { id: 2, category: 'electronics', name: 'Smartphone', brand: 'Samsung' },
+    { id: 3, category: 'furniture', name: 'Chair', brand: 'IKEA' },
+    { id: 4, category: 'furniture', name: 'Table', brand: 'IKEA' },
+  ];
+  
+  it('should filter products by category and brand', () => {
+    const query =  { category: 'electronics', brand: 'HP'}
+    const expected = [
+      { id: 1, category: 'electronics', name: 'Laptop', brand: 'HP' }
+    ];
+
+    const result = searchProducts(query, products);
+    expect(result).toEqual(expected);
+  });
+  
+  it('should filter products by category, brand and name', () => {
+    const query =  { category: 'furniture', name: 'Chair', brand: 'IKEA' }
+    const expected = [
+      { id: 3, category: 'furniture', name: 'Chair', brand: 'IKEA' }
+    ];
+    
+    const result = searchProducts(query, products);
+    expect(result).toEqual(expected);
+  });
+
 });
