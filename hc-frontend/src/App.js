@@ -2,6 +2,7 @@ import React, { createContext } from 'react';
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import FilterSideBar from './component/custom/SideBarNavigation/FilterSideBar';
 
 const ContextProvider = createContext();
 
@@ -12,6 +13,7 @@ function App() {
     <Provider store={store}>
       <ContextProvider.Provider value={{}}>
         <h1>Home Center</h1>
+        <FilterSideBar />
       </ContextProvider.Provider>
     </Provider>
   );
