@@ -48,6 +48,61 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Search query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3020/products/query?brand=Gucci",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3020",
+							"path": [
+								"products",
+								"query"
+							],
+							"query": [
+								{
+									"key": "brand",
+									"value": "Gucci"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search query post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category\": \"beauty\",\r\n    \"price\": {\"min\": 9, \"max\": 15}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3020/products/query",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3020",
+							"path": [
+								"products",
+								"query"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
