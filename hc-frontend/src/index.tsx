@@ -1,28 +1,27 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Home from './pages/Home';
-import Cart from './pages/Cart';
-import Login from './pages/Login';
-import OrderSummary from './pages/OrderSummary';
-import Payment from './pages/Payment';
-import ProductDetails from './pages/ProductDetails';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { BrowserRouter } from 'react-router';
+import store from './redux/store';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
+//TODO: set contextProvider values from context and use it below
+
+const ContextProvider = createContext({});
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/order_summary" element={<OrderSummary />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/product_details" element={<ProductDetails />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <ContextProvider.Provider value={{}}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ContextProvider.Provider>
+    </Provider>
   </React.StrictMode>
 );
 
