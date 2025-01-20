@@ -11,5 +11,6 @@
             "type": "node-terminal",
             "cwd": "${workspaceFolder}/hc-backend"
         }
-    ]
+    ],
+    "files.eol": "\n"
 }
