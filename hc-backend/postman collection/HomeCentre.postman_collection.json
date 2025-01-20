@@ -129,6 +129,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "sort by product keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3020/products/sortByProductKey?sort_by=price?order_by=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3020",
+							"path": [
+								"products",
+								"sortByProductKey"
+							]
+							
+						}
+					},
+					"response": []
 				}
 			]
 		}
