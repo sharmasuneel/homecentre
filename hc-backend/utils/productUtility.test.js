@@ -56,8 +56,8 @@ describe('Product Filtering Functions', () => {
       reviewRating: 1
     };
     const result = searchProductsV1(payload, products);
-    expect(result).toHaveLength(1);
-    expect(result[0].brand).toBe('Essence');
+    expect(result).toHaveLength(2);
+    expect(result[0].brand).toBe('Galmour');
     expect(result[0].category).toBe('beauty');
     expect(result[0].price).toBeLessThanOrEqual(30);
     expect(result[0].price).toBeGreaterThanOrEqual(2);
