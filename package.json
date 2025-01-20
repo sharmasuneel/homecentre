@@ -20,5 +20,8 @@
   "homepage": "https://github.com/sharmasuneel/homecentre#readme",
   "devDependencies": {
     "husky": "^9.1.7"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.1.3"
   }
 }
