@@ -2,7 +2,7 @@ const express = require('express');
 const { postData, getData } = require('../services/dataService');
 const router = express.Router();
 const productsData = require('../metadata/productList.json');
-const { getFilterProducts, searchProducts, searchProductsV1, filterProductsByKeywords } = require('../utils/productUtility');
+const { getFilterProducts, searchProducts, searchProductsV1, filterProductsByKeywords, sortByProductKey } = require('../utils/productUtility');
 
 /**
  * @module routes/products
@@ -58,4 +58,11 @@ router.get('/keywordSearch', async (req, res, next) => {
     return res.json(filteredProducts);
 });
 
+router.get('/sortByProductKey', async (req, res, next) => {
+    const sortBy = req.query.sort_by;
+    const orderBy = req.query.order_by ? req.query.order_by.toLowerCase() : "asc";
+    const orderedProducts = sortByProductKey(sortBy, orderBy, productsData.products);
+    return res.json(orderedProducts);
+});
+ 
 module.exports = router;

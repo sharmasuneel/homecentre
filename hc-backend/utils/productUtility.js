@@ -84,4 +84,16 @@ function filterProductsByKeywords(keywordSearch, products) {
     });
 }
 
-module.exports = { getFilterProducts, searchProducts, searchProductsV1, filterProductsByKeywords };
+function sortByProductKey(sortBy, orderBy, products){
+   return products.sort((a,b) => {
+      if(orderBy == 'desc'){
+         return b[sortBy] - a[sortBy]
+      }else if(orderBy == 'asc'){
+         return a[sortBy] - b[sortBy]
+      }else{
+         return a[sortBy] - b[sortBy]
+      }
+   });
+}
+
+module.exports = { getFilterProducts, searchProducts, searchProductsV1, filterProductsByKeywords, sortByProductKey };
