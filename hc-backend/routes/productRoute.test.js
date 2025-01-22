@@ -35,4 +35,16 @@ describe('Products Routes', () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual(filteredProducts);
   });
+
+  it('should return the product details with specific id ', async () => {
+    const response = await request(app).get('/products/30');
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(productsData.products[29]);
+  });
+
+  it('should return the error with status code 404 if porduct is not found', async () => {
+    const response = await request(app).get('/products/35324123123');
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({ error: 'Product is not Found'});
+  });
 });

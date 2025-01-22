@@ -34,6 +34,16 @@ const searchProductsV1 = (payload, products) => {
 };
 
 /**
+ * Retrieve product details based on the provided payload object using the product ID.
+ * @param {number} productId - The productId to find.
+ * @param {Array<Object>} products - The list of products.
+ * @returns {Object} - The products details
+ */
+const getProductDetails = (productId, products) => {
+    return products.find((each) => each.id === productId);
+};
+
+/**
  * Filters data based on a payload object.
  * @param {Object} payload - The payload object containing filter criteria.
  * @param {Array<Object>} data - The list of data to filter.
@@ -84,4 +94,4 @@ function filterProductsByKeywords(keywordSearch, products) {
     });
 }
 
-module.exports = { getFilterProducts, searchProducts, searchProductsV1, filterProductsByKeywords };
+module.exports = { getFilterProducts, searchProducts, searchProductsV1, filterProductsByKeywords, getProductDetails };
