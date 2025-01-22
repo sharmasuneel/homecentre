@@ -2,7 +2,7 @@ const express = require('express');
 const { postData, getData } = require('../services/dataService');
 const router = express.Router();
 const productsData = require('../metadata/productList.json');
-const { getFilterProducts, searchProducts } = require('../utils/productUtility');
+const { getFilterProducts, searchProducts, searchProductsV1, filterProductsByKeywords } = require('../utils/productUtility');
 
 /**
  * @module routes/products
@@ -46,6 +46,16 @@ router.get('/:category/:value', async (req, res, next) => {
 router.get('/query', async (req, res, next) => {
     const products = searchProducts(req.query, productsData.products);
     return res.json(products);
+});
+
+router.post('/query', async (req, res, next) => {
+    const products = searchProductsV1(req.body, productsData.products);
+    return res.json(products);
+});
+
+router.get('/keywordSearch', async (req, res, next) => {
+    const filteredProducts = filterProductsByKeywords(req.query.keyword, productsData.products);
+    return res.json(filteredProducts);
 });
 
 module.exports = router;
