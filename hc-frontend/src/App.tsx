@@ -19,7 +19,6 @@ const App: React.FC = () => {
       <Route path="/order_summary" element={<OrderSummary />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/product_details" element={<ProductDetails />} />
-
     </Routes>
   );
 }

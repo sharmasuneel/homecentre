@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router';
 import store from './redux/store';
 import { Provider } from 'react-redux';
-import FilterSideBar from './component/custom/SideBarNavigation/FilterSideBar';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -21,7 +20,7 @@ root.render(
       <ContextProvider.Provider value={{}}>
         <BrowserRouter>
           <App />
-          <FilterSideBar />
+          {/* <FilterSideBar /> */}
         </BrowserRouter>
       </ContextProvider.Provider>
     </Provider>
