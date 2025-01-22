@@ -60,8 +60,9 @@ router.get("/:productId", async (req, res, next) => {
   const productDetails = getProductDetails(Number(productId), productsData.products);
   if(productDetails)
     return res.json(productDetails);
-  else
-    return res.status(404).send({ error: 'Product is not Found'})
+  else {
+    next();
+  }
 });
 
 router.get('/keywordSearch', async (req, res, next) => {

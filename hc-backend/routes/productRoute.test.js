@@ -45,6 +45,6 @@ describe('Products Routes', () => {
   it('should return the error with status code 404 if porduct is not found', async () => {
     const response = await request(app).get('/products/35324123123');
     expect(response.status).toBe(404);
-    expect(response.body).toEqual({ error: 'Product is not Found'});
+    expect(response.error.text).toContain('Cannot GET /products/35324123123');
   });
 });
