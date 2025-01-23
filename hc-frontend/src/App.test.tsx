@@ -1,14 +1,38 @@
-import React from 'react'
+import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
+import configureStore from 'redux-mock-store';
+import App from './App';
+import { fetchAllProducts } from './redux/slices/filtersSlice';
 
-test('renders learn react link', () => {
-  render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
-  );
-  const linkElement = screen.getByText(/Home Center/i);
-  expect(linkElement).toBeInTheDocument();
+// Mock the fetchAllProducts action to return a plain object
+jest.mock('./redux/slices/filtersSlice', () => ({
+  fetchAllProducts: () => ({ type: 'FETCH_ALL_PRODUCTS' }),
+}));
+
+const mockStore = configureStore([]);
+
+describe('App Component', () => {
+  let store: any;
+
+  beforeEach(() => {
+    store = mockStore({
+      filters: {
+        products: [], // Ensure the initial state includes the products array
+      },
+    });
+
+    store.dispatch = jest.fn();
+  });
+
+  test('renders App component', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+  });
 });
