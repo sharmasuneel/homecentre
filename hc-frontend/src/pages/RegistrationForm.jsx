@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -20,11 +20,7 @@ const RegistrationForm = () => {
     password: '',
     confirmPassword: '',
     phone: '',
-    address: {
-      street: '',
-      city: '',
-      zip: ''
-    }
+    username: '',
   });
 
   const [serverError, setServerError] = useState('');
@@ -52,12 +48,28 @@ const RegistrationForm = () => {
 
   // Validate the form fields
   const validate = () => {
-    let tempErrors = { fullName: '', email: '', password: '', confirmPassword: '', phone: '', address: { street: '', city: '', zip: '' }};
+    let tempErrors = { fullName: '', email: '', password: '', confirmPassword: '', phone: '', address: { street: '', city: '', zip: '' } };
     let isValid = true;
 
     // Full Name validation
     if (!formData.fullName) {
       tempErrors.fullName = 'Full name is required';
+      isValid = false;
+    }
+    if (!formData.userName) {
+      tempErrors.userName = 'userName is required';
+      isValid = false;
+    }
+    if (!formData.email) {
+      tempErrors.email = 'Email is required';
+      isValid = false;
+    } 
+    if (!formData.password) {
+      tempErrors.password = 'password is required';
+      isValid = false;
+    }
+    if (!formData.confirmPassword) {
+      tempErrors.confirmPassword = 'confirm Password is required';
       isValid = false;
     }
 
@@ -87,22 +99,6 @@ const RegistrationForm = () => {
       isValid = false;
     }
 
-    // Address validations
-    if (!formData.address.street) {
-      tempErrors.address.street = 'Street address is required';
-      isValid = false;
-    }
-
-    if (!formData.address.city) {
-      tempErrors.address.city = 'City is required';
-      isValid = false;
-    }
-
-    if (!formData.address.zip || formData.address.zip.length !== 5) {
-      tempErrors.address.zip = 'Zip code must be 5 digits';
-      isValid = false;
-    }
-
     setErrors(tempErrors);
     return isValid;
   };
@@ -114,135 +110,90 @@ const RegistrationForm = () => {
     setIsSubmitting(true);
 
     if (validate()) {
-        setTimeout(() => {
+      setTimeout(() => {
         alert('Registration successful!');
         setIsSubmitting(false);
-       }, 1000);
+      }, 1000);
     } else {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className='registration-container'>
-      <h2>Register</h2>
-      <form className='registration-form' onSubmit={handleSubmit}>
-        {/* Full Name */}
-        <div>
-          {/* <label htmlFor='fullName'>Full Name:</label> */}
-          <input
-            type='text'
-            name='fullName'
-            value={formData.fullName}
-            onChange={handleChange}
-            className='input-field'
-            placeholder='Enter your full name'
-          />
-          {errors.fullName && <p className='error-message'>{errors.fullName}</p>}
-        </div>
+    <div className='container'>
 
-        {/* Email */}
-        <div>
-          {/* <label htmlFor='email'>Email:</label> */}
-          <input
-            type='email'
-            name='email'
-            value={formData.email}
-            onChange={handleChange}
-            className='input-field'
-            placeholder='Enter your email'
-          />
-          {errors.email && <p className='error-message'>{errors.email}</p>}
-        </div>
+      <div className="title">Registration</div>
+      <div className="content">
+        <form  onSubmit={handleSubmit} >
+          <div className="user-details">
 
-        {/* Password */}
-        <div>
-          {/* <label htmlFor='password'>Password:</label> */}
-          <input
-            type='password'
-            name='password'
-            value={formData.password}
-            onChange={handleChange}
-            className='input-field'
-            placeholder='Enter your password'
-          />
-          {errors.password && <p className='error-message'>{errors.password}</p>}
-        </div>
+            <div className="input-box">
+              <span className="details">Full Name</span>
+              <input type="text" placeholder="Enter your name"  value={formData.fullName}/>
+              {errors.fullName && <p className='error-message'>{errors.fullName}</p>}
+            </div>
 
-        {/* Confirm Password */}
-        <div>
-          {/* <label htmlFor='confirmPassword'>Confirm Password:</label> */}
-          <input
-            type='password'
-            name='confirmPassword'
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            className='input-field'
-            placeholder='Confirm your password'
-          />
-          {errors.confirmPassword && <p className='error-message'>{errors.confirmPassword}</p>}
-        </div>
+            <div className="input-box">
+              <span className="details">Username</span>
+              <input type="text" placeholder="Enter your username"  />
+              {errors.userName && <p className='error-message'>{errors.userName}</p>}
+            </div>
 
-        {/* Phone Number */}
-        <div>
-          {/* <label htmlFor='phone'>Phone Number:</label> */}
-          <input
-            type='text'
-            name='phone'
-            value={formData.phone}
-            onChange={handleChange}
-            className='input-field'
-            placeholder='Enter your phone number'
-          />
-          {errors.phone && <p className='error-message'>{errors.phone}</p>}
-        </div>
+            <div className="input-box">
+              <span className="details">Email</span>
+              <input type="text" placeholder="Enter your email"  value={formData.email} />
+              {errors.email && <p className='error-message'>{errors.email}</p>}
+            </div>
 
-        {/* Address (Nested Fields) */}
-        <div>
-          {/* <label htmlFor='address.street'>Street Address:</label> */}
-          <input
-            type='text'
-            name='address.street'
-            value={formData.address.street}
-            onChange={handleChange}
-            className='input-field'
-            placeholder='Enter your street address'
-          />
-          {errors.address?.street && <p className='error-message'>{errors.address.street}</p>}
-        </div>
+            <div className="input-box">
+              <span className="details">Phone Number</span>
+              <input type="text" placeholder="Enter your number"  value={formData.phone}/>
+              {errors.phone && <p className='error-message'>{errors.phone}</p>}
+            </div>
 
-        <div>
-          {/* <label htmlFor='address.city'>City:</label> */}
-          <input
-            type='text'
-            name='address.city'
-            value={formData.address.city}
-            onChange={handleChange}
-            className='input-field'
-            placeholder='Enter your city'
-          />
-          {errors.address?.city && <p className='error-message'>{errors.address.city}</p>}
-        </div>
+            <div className="input-box">
+              <span className="details">Password</span>
+              <input type="text" placeholder="Enter your password"  value={formData.password}/>
+              {errors.password && <p className='error-message'>{errors.password}</p>}
+            </div>
 
-        <div>
-          {/* <label htmlFor='address.zip'>Zip Code:</label> */}
-          <input
-            type='text'
-            name='address.zip'
-            value={formData.address.zip}
-            onChange={handleChange}
-            className='input-field'
-            placeholder='Enter your zip code'
-          />
-          {errors.address?.zip && <p className='error-message'>{errors.address.zip}</p>}
-        </div>
+            <div className="input-box">
+              <span className="details">Confirm Password</span>
+              <input type="text" placeholder="Confirm your password"  value={formData.confirmPassword}/>
+              {errors.confirmPassword && <p className='error-message'>{errors.confirmPassword}</p>}
+            </div>
+          </div>
+          <div className="gender-details">
 
-        {serverError && <p className='server-error'>{serverError}</p>}
+            <input type="radio" name="gender" id="dot-1" />
+            <input type="radio" name="gender" id="dot-2" />
+            <input type="radio" name="gender" id="dot-3" />
+            <span className="gender-title">Gender</span>
+            <div className="category">
+
+              <label for="dot-1">
+                <span className="dot one"></span>
+                <span className="gender">Male</span>
+              </label>
+
+              <label for="dot-2">
+                <span className="dot two"></span>
+                <span className="gender">Female</span>
+              </label>
+
+              <label for="dot-3">
+                <span className="dot three"></span>
+                <span className="gender">Prefer not to say</span>
+              </label>
+            </div>
+          </div>
+          {serverError && <p className='server-error'>{serverError}</p>}
 
         <button type='submit' className='submit-button' disabled={isSubmitting}>
           {isSubmitting ? 'Registering...' : 'Register'}
         </button>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
