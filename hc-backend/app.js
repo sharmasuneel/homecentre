@@ -4,8 +4,15 @@ var cors = require('cors')
 const app = express()
 const port = 3020
 const productRoute = require('./routes/productRoute')
+const registrationRoute = require('./routes/registration')
+
+const appSessionData =  {
+
+}
 
 app.use(cors())
+
+app.set('appSessionData', appSessionData);
 
 // Use body-parser middleware
 app.use(bodyParser.json());
@@ -15,6 +22,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/products', productRoute)
+app.use('/registartion', registrationRoute)
 
   app.listen(port, () => {
     console.log(' ')
