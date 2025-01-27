@@ -5,21 +5,27 @@ import { registerUser, clearError } from '../redux/slices/registrationSlice';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     confirmPassword: '',
     phone: '',
     username: '',
+    age:'',
+    gender:''
   });
 
   const [errors, setErrors] = useState({
-    fullName: '',
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     confirmPassword: '',
     phone: '',
     username: '',
+    age:'',
+    gender:''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,16 +43,24 @@ const RegistrationForm = () => {
 
   // Validate the form fields
   const validate = () => {
-    let tempErrors = { fullName: '', email: '', password: '', confirmPassword: '', phone: '', address: { street: '', city: '', zip: '' } };
+    let tempErrors = { firstname: '', lastname:'', age:'', email: '', password: '', confirmPassword: '', phone: '', address: { street: '', city: '', zip: '' } };
     let isValid = true;
 
     // Full Name validation
-    if (!formData.fullName) {
-      tempErrors.fullName = 'Full name is required';
+    if (!formData.firstname) {
+      tempErrors.firstname = 'Full name is required';
+      isValid = false;
+    }    
+    if (!formData.lastname) {
+      tempErrors.lastname = 'Last name is required';
       isValid = false;
     }
-    if (!formData.userName) {
-      tempErrors.userName = 'userName is required';
+    if (!formData.username) {
+      tempErrors.username = 'userName is required';
+      isValid = false;
+    }    
+    if (!formData.age) {
+      tempErrors.age = 'Age is required';
       isValid = false;
     }
     if (!formData.email) {
@@ -59,6 +73,10 @@ const RegistrationForm = () => {
     }
     if (!formData.confirmPassword) {
       tempErrors.confirmPassword = 'confirm Password is required';
+      isValid = false;
+    }
+    if (!formData.gender) {
+      tempErrors.gender = 'Gender is required';
       isValid = false;
     }
 
@@ -118,15 +136,26 @@ const RegistrationForm = () => {
           <div className="user-details">
 
             <div className="input-box">
-              <span className="details">Full Name</span>
-              <input type="text" placeholder="Enter your name" value={formData.fullName} onChange={handleChange} />
-              {errors.fullName && <p className='error-message'>{errors.fullName}</p>}
+              <span className="details">First Name</span>
+              <input type="text" placeholder="Enter your first name" name="firstname" value={formData.firstname} onChange={handleChange} />
+              {errors.firstname && <p className='error-message'>{errors.firstname}</p>}
+            </div>
+            <div className="input-box">
+              <span className="details">Last Name</span>
+              <input name="lastname" type="text" placeholder="Enter your last name" value={formData.lastname} onChange={handleChange} />
+              {errors.lastname && <p className='error-message'>{errors.lastname}</p>}
             </div>
 
             <div className="input-box">
               <span className="details">Username</span>
               <input type="text" placeholder="Enter your username" onChange={handleChange} />
-              {errors.userName && <p className='error-message'>{errors.userName}</p>}
+              {errors.username && <p className='error-message'>{errors.username}</p>}
+            </div>
+
+            <div className="input-box">
+              <span className="details">Age</span>
+              <input type="text" placeholder="Enter your Age" onChange={handleChange} />
+              {errors.age && <p className='error-message'>{errors.age}</p>}
             </div>
 
             <div className="input-box">
@@ -155,9 +184,9 @@ const RegistrationForm = () => {
           </div>
           <div className="gender-details">
 
-            <input type="radio" name="gender" id="dot-1" />
-            <input type="radio" name="gender" id="dot-2" />
-            <input type="radio" name="gender" id="dot-3" />
+            <input type="radio" name="gender" id="dot-1" onChange={handleChange}/>
+            <input type="radio" name="gender" id="dot-2" onChange={handleChange}/>
+            <input type="radio" name="gender" id="dot-3" onChange={handleChange} />
             <span className="gender-title">Gender</span>
             <div className="category">
 
@@ -175,6 +204,10 @@ const RegistrationForm = () => {
                 <span className="dot three"></span>
                 <span className="gender">Prefer not to say</span>
               </label>
+              <div>
+              {errors.gender && <p className='error-message'>{errors.gender}</p>}
+              </div>
+              
             </div>
           </div>
 

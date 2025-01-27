@@ -6,12 +6,12 @@ export const registerUser = createAsyncThunk(
   'registration/registerUser',
   async (formData, { rejectWithValue }) => {
     try {
-      // const response = await fetch("https://example.com/api/register", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(formData),
-      // });
-      const response = '';
+      const response = await fetch("http://localhost:3020/registeration", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      //const response = '';
       if (!response.ok) {
         throw new Error('Failed to register. Please try again.');
       }
