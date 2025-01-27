@@ -1,9 +1,8 @@
-import Header from 'component/custom/Header/Header'
 import React from 'react'
 
 const Home = () => {
   return (
-    <Header />
+    <h1>Home</h1>
   )
 }
 

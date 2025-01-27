@@ -8,19 +8,29 @@ import Payment from './pages/Payment';
 import ProductDetails from './pages/ProductDetails';
 import { Routes, Route } from 'react-router';
 
-const App: React.FC = () => {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/order_summary" element={<OrderSummary />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/product_details" element={<ProductDetails />} />
+import Header from './component/custom/Header/Header';
+import FilterSideBar from './component/custom/SideBarNavigation/FilterSideBar';
+import { useSelector } from 'react-redux';
+// eslint-disable-next-line no-unused-vars
+import { RootState } from './redux/store';
 
-      </Routes>
-    </>
+const App: React.FC = () => {
+  const isSideBarVisible = useSelector((state: RootState) => state.app.showSideBar)
+  return (
+    <div className='App'>
+      <Header />
+      <div className='flex flex-1'>
+        {isSideBarVisible && <FilterSideBar />}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/order_summary" element={<OrderSummary />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/product/:productId" element={<ProductDetails />} />
+        </Routes>
+      </div>
+    </div>
   );
 }
 
