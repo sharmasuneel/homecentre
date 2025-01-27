@@ -5,9 +5,14 @@ var cors = require('cors')
 const app = express()
 const port = 3020
 const productRoute = require('./routes/productRoute')
+const userRoute = require('./routes/userRoute')
 const { ValidationError, NotFoundError, AuthenticationError } = require('./utils/customError')
 
 app.use(cors())
+
+app.locals.appData = {
+  registeredUsers: []
+};
 
 // Use body-parser middleware
 app.use(bodyParser.json());
@@ -17,6 +22,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/products', productRoute)
+app.use('/user', userRoute)
 
 // Middleware to handle custom errors
 app.use((err, req, res, next) => {
