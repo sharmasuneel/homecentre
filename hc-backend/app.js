@@ -5,15 +5,11 @@ var cors = require('cors')
 const app = express()
 const port = 3020
 const productRoute = require('./routes/productRoute')
-<<<<<<< HEAD
-const { ValidationError, NotFoundError, AuthenticationError } = require('./utils/customError')
-=======
 const registrationRoute = require('./routes/registration')
 
 const appSessionData =  {
 
 }
->>>>>>> 92ed1faaa109bd15326985141b476b4519537330
 
 app.use(cors())
 
