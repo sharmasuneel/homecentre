@@ -1,5 +1,8 @@
 /* eslint-disable */
-import React, { use, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, clearError } from '../redux/slices/registrationSlice';
+
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -7,11 +10,7 @@ const RegistrationForm = () => {
     password: '',
     confirmPassword: '',
     phone: '',
-    address: {
-      street: '',
-      city: '',
-      zip: ''
-    }
+    username: '',
   });
 
   const [errors, setErrors] = useState({
@@ -23,27 +22,17 @@ const RegistrationForm = () => {
     username: '',
   });
 
-  const [serverError, setServerError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading, serverError } = useSelector((state) => state.registration);
 
   // Handle field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name.includes('address')) {
-      const [addressField] = name.split('.');
-      setFormData({
-        ...formData,
-        address: {
-          ...formData.address,
-          [addressField]: value,
-        },
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    }
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   // Validate the form fields
@@ -63,7 +52,7 @@ const RegistrationForm = () => {
     if (!formData.email) {
       tempErrors.email = 'Email is required';
       isValid = false;
-    } 
+    }
     if (!formData.password) {
       tempErrors.password = 'password is required';
       isValid = false;
@@ -106,12 +95,12 @@ const RegistrationForm = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setServerError('');
+    clearError(formData);
     setIsSubmitting(true);
 
     if (validate()) {
       setTimeout(() => {
-        alert('Registration successful!');
+        dispatch(registerUser(formData));
         setIsSubmitting(false);
       }, 1000);
     } else {
@@ -123,43 +112,44 @@ const RegistrationForm = () => {
     <div className='container'>
 
       <div className="title">Registration</div>
+      {serverError && <p className='server-error'>{serverError}</p>}
       <div className="content">
-        <form  onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit} >
           <div className="user-details">
 
             <div className="input-box">
               <span className="details">Full Name</span>
-              <input type="text" placeholder="Enter your name"  value={formData.fullName}/>
+              <input type="text" placeholder="Enter your name" value={formData.fullName} onChange={handleChange} />
               {errors.fullName && <p className='error-message'>{errors.fullName}</p>}
             </div>
 
             <div className="input-box">
               <span className="details">Username</span>
-              <input type="text" placeholder="Enter your username"  />
+              <input type="text" placeholder="Enter your username" onChange={handleChange} />
               {errors.userName && <p className='error-message'>{errors.userName}</p>}
             </div>
 
             <div className="input-box">
               <span className="details">Email</span>
-              <input type="text" placeholder="Enter your email"  value={formData.email} />
+              <input type="text" placeholder="Enter your email" value={formData.email} onChange={handleChange} />
               {errors.email && <p className='error-message'>{errors.email}</p>}
             </div>
 
             <div className="input-box">
               <span className="details">Phone Number</span>
-              <input type="text" placeholder="Enter your number"  value={formData.phone}/>
+              <input type="text" placeholder="Enter your number" value={formData.phone} onChange={handleChange} />
               {errors.phone && <p className='error-message'>{errors.phone}</p>}
             </div>
 
             <div className="input-box">
               <span className="details">Password</span>
-              <input type="text" placeholder="Enter your password"  value={formData.password}/>
+              <input type="text" placeholder="Enter your password" value={formData.password} onChange={handleChange} />
               {errors.password && <p className='error-message'>{errors.password}</p>}
             </div>
 
             <div className="input-box">
               <span className="details">Confirm Password</span>
-              <input type="text" placeholder="Confirm your password"  value={formData.confirmPassword}/>
+              <input type="text" placeholder="Confirm your password" value={formData.confirmPassword} onChange={handleChange} />
               {errors.confirmPassword && <p className='error-message'>{errors.confirmPassword}</p>}
             </div>
           </div>
@@ -187,11 +177,11 @@ const RegistrationForm = () => {
               </label>
             </div>
           </div>
-          {serverError && <p className='server-error'>{serverError}</p>}
 
-        <button type='submit' className='submit-button' disabled={isSubmitting}>
-          {isSubmitting ? 'Registering...' : 'Register'}
-        </button>
+
+          <button type='submit' className='submit-button' disabled={isSubmitting}>
+            {isLoading ? 'Registering...' : 'Register'}
+          </button>
         </form>
       </div>
     </div>

@@ -1,9 +1,15 @@
 /* eslint-disable */
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../redux/slices/authSlice';
+
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.auth);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
 
@@ -45,7 +51,7 @@ const Login = () => {
       setServerError('');
 
       setTimeout(() => {
-        alert('Login successful!');
+        dispatch(loginUser({ email: formData.email, password: formData.password }));
         setIsSubmitting(false);
       }, 1000);
 
@@ -58,6 +64,7 @@ const Login = () => {
   return (
     <div className='login-container'>
       <h2>Login</h2>
+      {error && <div className="error-message">{serverError}</div>}
       <form className='login-form' onSubmit={handleSubmit}>
         <div>
           {/* <label htmlFor='email'>Email:</label> */}
@@ -82,9 +89,6 @@ const Login = () => {
           />
           {errors.password && <p className='error-message'>{errors.password}</p>}
         </div>
-
-        {serverError && <p className='server-error'>{serverError}</p>}
-
         <button type='submit' disabled={isSubmitting} >Login</button>
       </form>
     </div>
