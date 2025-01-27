@@ -1,11 +1,9 @@
 import React from 'react';
-import Header from 'component/Header'
-// import FilterSideBar from 'component/custom/SideBarNavigation/FilterSideBar';
+import Header from 'component/custom/Header/Header';
 const Home = () => {
   return (
     <>
       <Header/>
-      {/* <FilterSideBar /> */}
     </>
    
   )
