@@ -6,12 +6,11 @@ export const registerUser = createAsyncThunk(
   'registration/registerUser',
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:3020/registeration", {
+      const response = await fetch("http://localhost:3020/user/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      //const response = '';
       if (!response.ok) {
         throw new Error('Failed to register. Please try again.');
       }
@@ -27,14 +26,14 @@ const registrationSlice = createSlice({
   initialState: {
     user: null,
     isLoading: false,
-    error: null,
+    serverError: null,
     success: false,
   },
   reducers: {
     clearState: (state) => {
       state.user = null;
       state.isLoading = false;
-      state.error = null;
+      state.serverError = null;
       state.success = false;
     },
     clearError:(state) => {
@@ -45,7 +44,7 @@ const registrationSlice = createSlice({
     builder
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
+        state.serverError = null;
         state.success = false;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
@@ -55,7 +54,7 @@ const registrationSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.serverError = action.payload;
         state.success = false;
       });
   },

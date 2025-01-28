@@ -5,15 +5,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // Async thunk to handle login API call
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
-  async ({ email, password }, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
-      // const response = await axios.post('http://localhost:/login', {
-      //   email,
-      //   password
-      // },
-      // )
-      const response = ''+email+password;
-      alert(''+email+password)
+      // const response = await fetch("http://localhost:3020/user/login", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(formData),
+      // });
+      // if (!response.ok) {
+      //   throw new Error('Failed to register. Please try again.');
+      // }
+      const response = "";
       return response?.data || 'sucessfully logged in';
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Login failed');
@@ -25,13 +27,17 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
+    token: null,
+    isAuthenticated: false,
     loading: false,
-    serverError: null,
+    error: null,
   },
   reducers: {
     logout: (state) => {
       state.user = null;
-      state.serverError = null;
+      state.token = null;
+      state.isAuthenticated = false;
+      localStorage.removeItem('token');
     },
   },
   extraReducers: (builder) => {
@@ -41,8 +47,11 @@ const authSlice = createSlice({
         state.serverError = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isAuthenticated = true;
         state.loading = false;
-        state.user = action.payload;
+        localStorage.setItem('token', action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

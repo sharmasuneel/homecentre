@@ -8,6 +8,7 @@ import Payment from './pages/Payment';
 import ProductDetails from './pages/ProductDetails';
 import { Routes, Route } from 'react-router';
 import RegistrationForm from './pages/RegistrationForm';
+import Dashboard from './pages/Dashboard';
 
 
 const App: React.FC = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/signup" element={<RegistrationForm />} />
         <Route path="/order_summary" element={<OrderSummary />} />
         <Route path="/payment" element={<Payment />} />

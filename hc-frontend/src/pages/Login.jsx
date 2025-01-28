@@ -2,16 +2,18 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/slices/authSlice';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
   const dispatch = useDispatch();
-  const { user, loading, error } = useSelector((state) => state.auth);
+
+  const { isAuthenticated, loading, error } = useSelector((state) => state.auth);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const navigate = useNavigate();
 
   const validate = () => {
     const errors = {};
@@ -30,7 +32,7 @@ const Login = () => {
     }
 
     setErrors(errors);
-    return Object.keys(errors).length === 0; 
+    return Object.keys(errors).length === 0;
   };
 
   const handleChange = (e) => {
@@ -49,25 +51,26 @@ const Login = () => {
     setIsSubmitting(true);
     if (validate()) {
       setServerError('');
-
       setTimeout(() => {
-        dispatch(loginUser({ email: formData.email, password: formData.password }));
+        dispatch(loginUser(formData));
         setIsSubmitting(false);
       }, 1000);
 
- 
-    }else{
+
+    } else {
       setIsSubmitting(false);
     }
   };
-
+  if (isAuthenticated) {
+    navigate('/dashboard'); // If already authenticated, redirect immediately
+  }
   return (
     <div className='login-container'>
       <h2>Login</h2>
       {error && <div className="error-message">{serverError}</div>}
       <form className='login-form' onSubmit={handleSubmit}>
         <div>
-          {/* <label htmlFor='email'>Email:</label> */}
+          <label htmlFor='email'>Email:</label>
           <input
             type='email'
             name='email'
@@ -79,7 +82,7 @@ const Login = () => {
         </div>
 
         <div>
-          {/* <label htmlFor='password'>Password:</label> */}
+          <label htmlFor='password'>Password:</label>
           <input
             type='password'
             name='password'
@@ -89,7 +92,7 @@ const Login = () => {
           />
           {errors.password && <p className='error-message'>{errors.password}</p>}
         </div>
-        <button type='submit' disabled={isSubmitting} >Login</button>
+        <button type='submit' disabled={isSubmitting} >{loading ? 'Login...' : 'Login'}</button>
       </form>
     </div>
   );
