@@ -3,7 +3,8 @@ import './Header.css';
 import Search from '../Search/Search';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from 'redux/slices/authSlice';
+import { logout } from '../../../redux/slices/authSlice';
+
 const Header = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);

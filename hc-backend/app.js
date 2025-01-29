@@ -5,7 +5,9 @@ var cors = require('cors')
 const app = express()
 const port = 3020
 const productRoute = require('./routes/productRoute')
-const userRoute = require('./routes/userRoute')
+const userRoute = require('./routes/userRoute');
+const userLoginRoute = require('./routes/userLoginRoute');
+const userProfileRoute = require('./routes/userProfileRoute');
 const { ValidationError, NotFoundError, AuthenticationError } = require('./utils/customError')
 
 app.use(cors())
@@ -23,6 +25,8 @@ app.get('/', (req, res) => {
 
 app.use('/products', productRoute)
 app.use('/user', userRoute)
+app.use('/auth', userLoginRoute)
+app.use('/profile', userProfileRoute)
 
 // Middleware to handle custom errors
 app.use((err, req, res, next) => {
