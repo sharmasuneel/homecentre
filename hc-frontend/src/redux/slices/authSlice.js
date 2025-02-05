@@ -10,7 +10,8 @@ export const fetchUserData = createAsyncThunk(
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      return response?.data; 
+      let data= await response.json();
+      return data?.user; 
     } catch (error) {
       return rejectWithValue(error.response.data || error.message);
     }
@@ -20,7 +21,7 @@ export const fetchUserData = createAsyncThunk(
 // Async thunk to handle login API call
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
-  async (formData, { rejectWithValue, dispatch}) => {
+  async (formData, { rejectWithValue}) => {
     try {
       const response = await fetch("http://localhost:3020/auth/login", {
         method: "POST",
@@ -30,9 +31,8 @@ export const loginUser = createAsyncThunk(
       if (!response.ok) {
         throw new Error('Failed to register. Please try again.');
       }
-      // Dispatch fetchUserData after successful login
-      dispatch(fetchUserData({"email": "john.doe@examplee12w.com"})); // Pass token to next thunk
-      return response?.data || 'sucessfully logged in';
+      let {data} = await response.json();
+      return data?.user || 'sucessfully logged in';
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Login failed');
     }
@@ -66,18 +66,15 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload;
-        state.token = action.payload.token;
+        //state.token = action.payload.token;
         state.isAuthenticated = true;
         state.loading = false;
-        localStorage.setItem('token', action.payload.token);
+        //localStorage.setItem('token', action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.serverError = action.payload;
-      });
-  },
-  extraReducers: (builder) => {
-    builder
+      })
       .addCase(fetchUserData.pending, (state) => {
         state.loading = true;
         state.serverError = null;
@@ -85,13 +82,14 @@ const authSlice = createSlice({
       .addCase(fetchUserData.fulfilled, (state, action) => {
         state.profile = action.payload;
         //state.token = action.payload.token;
+        state.isAuthenticated = true;
         state.loading = false;
         //localStorage.setItem('token', action.payload.token);
       })
       .addCase(fetchUserData.rejected, (state, action) => {
         state.loading = false;
         state.serverError = action.payload;
-      });
+      })
   },
 });
 

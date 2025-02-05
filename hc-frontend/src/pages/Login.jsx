@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../redux/slices/authSlice';
+import { loginUser, fetchUserData } from '../redux/slices/authSlice';
 import { useNavigate } from 'react-router';
 
 const Login = () => {
@@ -52,7 +52,9 @@ const Login = () => {
     if (validate()) {
       setServerError('');
       setTimeout(() => {
-        dispatch(loginUser(formData));
+      dispatch(loginUser(formData));
+      // Dispatch fetchUserData after successful login
+      dispatch(fetchUserData({"email": formData.email})); // Pass token to next thunk
         setIsSubmitting(false);
       }, 1000);
 
@@ -64,6 +66,7 @@ const Login = () => {
   if (isAuthenticated) {
     navigate('/dashboard'); // If already authenticated, redirect immediately
   }
+
   return (
     <div className='login-container'>
       <h2>Login</h2>
